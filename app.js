@@ -146,7 +146,7 @@ app.use('/busca', express.static(path.join(__dirname, 'public/Busca')));
 // Rota para renderizar o formulário de busca
 app.get('/busca', (req, res) => {
   if (req.session.loggedIn === false) {
-    res.redirect('/');
+    res.redirect('/profile');
   } else {
     // Se loggedIn for true, continue com a rota normalmente
     const apiUrl = 'http://18.217.149.104/api/v1/course/list';
