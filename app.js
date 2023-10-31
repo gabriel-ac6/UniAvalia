@@ -4,7 +4,7 @@ const axios = require('axios');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const app = express();
-const port = 3000;
+const port = 3001;
 
 
 
@@ -27,17 +27,14 @@ app.use(session({
 }));
 
 // Middleware para inicializar a variável de sessão
-app.use((req, res, next) => {
-  if (!req.session.loggedIn) {
-    req.session.loggedIn = false;
-  }
-  next();
-});
 
 // Configurar o Express para servir arquivos estáticos do diretório 'public/Index'
 app.use('/', express.static(path.join(__dirname, 'public/Index')));
 
 app.get('/', (req, res) => {
+  if (typeof req.session.loggedIn === 'undefined' || req.session.loggedIn === false) {
+    req.session.loggedIn = false;
+  }
   logado = req.session.loggedIn;
   res.render('Index/index', { logado });
 });
